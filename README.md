@@ -1,3 +1,5 @@
+<img src="brand/hosty-banner.svg" alt="Hosty - Local game servers, made simple." width="100%" />
+
 # Hosty-Games
 
 Signed game catalog for [Hosty](https://github.com/Morphy137/Hosty). The app reads `index.json` and
