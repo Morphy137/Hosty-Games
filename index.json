@@ -1,0 +1,127 @@
+{
+  "apiVersion": 1,
+  "generatedAt": "2026-10-16T09:10:02.454Z",
+  "packs": [
+    {
+      "id": "hytale",
+      "name": "Hytale",
+      "version": "1.0.0",
+      "author": {
+        "name": "Hosty",
+        "url": "https://github.com/Morphy137/Hosty"
+      },
+      "description": {
+        "en": "Hytale Dedicated Server (engine spec & preview)",
+        "es": "Servidor dedicado de Hytale (especificación y preview)"
+      },
+      "category": "voxel",
+      "status": "coming_soon",
+      "logo": "logo.webp",
+      "hasCode": false,
+      "files": [
+        {
+          "path": "hosty-game.json",
+          "sha256": "879158871257f861978a329088d86c43d79781168b4222b102276a369f958214",
+          "size": 1755
+        },
+        {
+          "path": "logo.webp",
+          "sha256": "c133f33dd3dd8b8f57862ee3637fecb0040da717d12865a46856dcec3dad9e20",
+          "size": 9412
+        }
+      ]
+    },
+    {
+      "id": "minecraft",
+      "name": "Minecraft: Java Edition",
+      "version": "1.0.0",
+      "author": {
+        "name": "Hosty",
+        "url": "https://github.com/Morphy137/Hosty"
+      },
+      "description": {
+        "en": "Official Mojang, Fabric, Paper, Forge and NeoForge Java servers"
+      },
+      "category": "voxel",
+      "status": "available",
+      "logo": "logo.svg",
+      "hasCode": true,
+      "files": [
+        {
+          "path": "dev-mock.json",
+          "sha256": "7b45ecc3ccbd8e638b33008f2fdc0a99d4cbc3bda9f77ec702f0303313ebb39b",
+          "size": 9825
+        },
+        {
+          "path": "driver.js",
+          "sha256": "a6a6e5daf1cb4730c5fad500a04418376bd21a2bfb37e6a2a6924f4bfb12c1b8",
+          "size": 154141
+        },
+        {
+          "path": "hosty-game.json",
+          "sha256": "1e2196e4424059ad5f0dd41af8a850e6ca742c4c3f5f8a8d83a34939fe729f4b",
+          "size": 27461
+        },
+        {
+          "path": "icons/aether.png",
+          "sha256": "7db91988b2dd2a8049a5a03955b4c05325c8ddad613a1a11073ae4e8b135fb68",
+          "size": 56392
+        },
+        {
+          "path": "icons/overworld.png",
+          "sha256": "27dcee36a7dfae47ef2863fd71d9c86486506c9c6b07401284440d6c9878c717",
+          "size": 56197
+        },
+        {
+          "path": "icons/the_end.png",
+          "sha256": "238f70b006d4a26b451265f4736451f4bb9643b4c1561230f4322c0c62833ad7",
+          "size": 48199
+        },
+        {
+          "path": "icons/the_nether.png",
+          "sha256": "35e675180e18b8bee8ed9ab6edb0ddd526b15a1d678415fe0a40faf821ad153c",
+          "size": 47686
+        },
+        {
+          "path": "icons/unknown.png",
+          "sha256": "7095272b7a2595c3e32bd57ba0f7871978f079357ef84379a1f7451cd2416b43",
+          "size": 54116
+        },
+        {
+          "path": "logo.svg",
+          "sha256": "f34e7ee835665e4e4c8ac3750d1ea17edb16a451027e4ecab1a5a5803fa17989",
+          "size": 90355
+        }
+      ]
+    },
+    {
+      "id": "project-zomboid",
+      "name": "Project Zomboid",
+      "version": "1.0.0",
+      "author": {
+        "name": "Hosty",
+        "url": "https://github.com/Morphy137/Hosty"
+      },
+      "description": {
+        "en": "Project Zomboid Dedicated Server (SteamCMD AppID 380870)",
+        "es": "Servidor dedicado de Project Zomboid (SteamCMD AppID 380870)"
+      },
+      "category": "survival",
+      "status": "beta",
+      "logo": "logo.webp",
+      "hasCode": false,
+      "files": [
+        {
+          "path": "hosty-game.json",
+          "sha256": "d863f40e24341cdc2df7320d1d553d1370608498cd6039ba870608f776aaca87",
+          "size": 5450
+        },
+        {
+          "path": "logo.webp",
+          "sha256": "6c33186e766c57047d8d0a29f5639d5ec7f10742b8246dce5000874357897780",
+          "size": 2676
+        }
+      ]
+    }
+  ]
+}

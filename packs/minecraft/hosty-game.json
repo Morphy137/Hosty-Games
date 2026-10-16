@@ -1,0 +1,1172 @@
+{
+  "apiVersion": 1,
+  "id": "minecraft",
+  "name": "Minecraft: Java Edition",
+  "version": "1.0.0",
+  "author": { "name": "Hosty", "url": "https://github.com/Morphy137/Hosty" },
+  "badge": "MC",
+  "category": "voxel",
+  "status": "available",
+  "description": {
+    "en": "Official Mojang, Fabric, Paper, Forge and NeoForge Java servers"
+  },
+  "defaults": {
+    "port": 25565,
+    "maxPlayers": 20,
+    "memoryMb": 4096
+  },
+  "launch": {
+    "runtime": "java",
+    "executable": "server.jar",
+    "args": [
+      "nogui"
+    ],
+    "discover": [
+      {
+        "glob": "libraries/net/neoforged/neoforge/*/win_args.txt",
+        "platform": "win32",
+        "args": [
+          {
+            "arg": "@user_jvm_args.txt",
+            "ifExists": "user_jvm_args.txt"
+          },
+          "@{{match}}",
+          "nogui"
+        ],
+        "variants": [
+          "neoforge"
+        ]
+      },
+      {
+        "glob": "libraries/net/neoforged/neoforge/*/unix_args.txt",
+        "platform": "linux",
+        "args": [
+          {
+            "arg": "@user_jvm_args.txt",
+            "ifExists": "user_jvm_args.txt"
+          },
+          "@{{match}}",
+          "nogui"
+        ],
+        "variants": [
+          "neoforge"
+        ]
+      },
+      {
+        "glob": "libraries/net/neoforged/neoforge/*/unix_args.txt",
+        "platform": "darwin",
+        "args": [
+          {
+            "arg": "@user_jvm_args.txt",
+            "ifExists": "user_jvm_args.txt"
+          },
+          "@{{match}}",
+          "nogui"
+        ],
+        "variants": [
+          "neoforge"
+        ]
+      },
+      {
+        "glob": "libraries/net/minecraftforge/forge/*/win_args.txt",
+        "platform": "win32",
+        "args": [
+          {
+            "arg": "@user_jvm_args.txt",
+            "ifExists": "user_jvm_args.txt"
+          },
+          "@{{match}}",
+          "nogui"
+        ],
+        "variants": [
+          "forge"
+        ]
+      },
+      {
+        "glob": "libraries/net/minecraftforge/forge/*/unix_args.txt",
+        "platform": "linux",
+        "args": [
+          {
+            "arg": "@user_jvm_args.txt",
+            "ifExists": "user_jvm_args.txt"
+          },
+          "@{{match}}",
+          "nogui"
+        ],
+        "variants": [
+          "forge"
+        ]
+      },
+      {
+        "glob": "libraries/net/minecraftforge/forge/*/unix_args.txt",
+        "platform": "darwin",
+        "args": [
+          {
+            "arg": "@user_jvm_args.txt",
+            "ifExists": "user_jvm_args.txt"
+          },
+          "@{{match}}",
+          "nogui"
+        ],
+        "variants": [
+          "forge"
+        ]
+      },
+      {
+        "glob": "forge-*.jar",
+        "exclude": "installer",
+        "mode": "jar",
+        "args": [
+          "nogui"
+        ],
+        "variants": [
+          "forge"
+        ]
+      }
+    ]
+  },
+  "detect": [
+    "server.properties"
+  ],
+  "logs": {
+    "ready": "Done \\([\\d.,]+s\\)! For help, type \"help\"",
+    "join": ":\\s(?<username>[a-zA-Z0-9_]{3,16}) joined the game",
+    "leave": ":\\s(?<username>[a-zA-Z0-9_]{3,16}) left the game"
+  },
+  "commands": {
+    "stop": "stop",
+    "save": "save-all",
+    "listPlayers": "list"
+  },
+  "playerQueries": [
+    {
+      "id": "Pos",
+      "command": "data get entity {{player}} Pos",
+      "pattern": ":\\s(?<username>[a-zA-Z0-9_]{3,16}) has the following entity data: \\[(?<x>-?\\d+(?:\\.\\d+)?(?:E-?\\d+)?)d, (?<y>-?\\d+(?:\\.\\d+)?(?:E-?\\d+)?)d, (?<z>-?\\d+(?:\\.\\d+)?(?:E-?\\d+)?)d\\]",
+      "fields": {
+        "x": "number",
+        "y": "number",
+        "z": "number"
+      }
+    },
+    {
+      "id": "Dimension",
+      "command": "data get entity {{player}} Dimension",
+      "pattern": ":\\s(?<username>[a-zA-Z0-9_]{3,16}) has the following entity data: \"(?:[a-z0-9_.-]+:)?(?<dimension>[a-z0-9_./-]+)\"",
+      "fields": {
+        "dimension": "string"
+      }
+    }
+  ],
+  "configFiles": [
+    {
+      "path": "server.properties",
+      "format": "properties"
+    }
+  ],
+  "configSync": {
+    "file": "server.properties",
+    "format": "properties",
+    "map": {
+      "port": "server-port",
+      "motd": "motd",
+      "maxPlayers": "max-players"
+    }
+  },
+  "bridgeLoaders": [
+    "paper",
+    "purpur",
+    "spigot",
+    "fabric"
+  ],
+  "setup": [
+    {
+      "id": "install",
+      "type": "custom",
+      "label": "Installation",
+      "labelKey": "create_server.steps.installation",
+      "component": "installer"
+    }
+  ],
+  "devMock": "dev-mock.json",
+  "motd": {
+    "colorCodes": true,
+    "preview": true
+  },
+  "installer": {
+    "variants": [
+      {
+        "id": "fabric",
+        "name": "Fabric",
+        "group": {
+          "en": "Modded",
+          "es": "Con mods"
+        },
+        "automatic": true
+      },
+      {
+        "id": "paper",
+        "name": "PaperMC",
+        "group": {
+          "en": "Plugins",
+          "es": "Plugins"
+        },
+        "automatic": true
+      },
+      {
+        "id": "purpur",
+        "name": "Purpur",
+        "group": {
+          "en": "Plugins",
+          "es": "Plugins"
+        },
+        "automatic": true
+      },
+      {
+        "id": "vanilla",
+        "name": "Vanilla",
+        "group": {
+          "en": "Vanilla",
+          "es": "Vanilla"
+        },
+        "automatic": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "group": {
+          "en": "Modded",
+          "es": "Con mods"
+        },
+        "automatic": true,
+        "url": "https://files.minecraftforge.net/net/minecraftforge/forge/"
+      },
+      {
+        "id": "neoforge",
+        "name": "NeoForge",
+        "group": {
+          "en": "Modded",
+          "es": "Con mods"
+        },
+        "automatic": true,
+        "url": "https://neoforged.net/"
+      },
+      {
+        "id": "spigot",
+        "name": "SpigotMC",
+        "group": {
+          "en": "Plugins",
+          "es": "Plugins"
+        },
+        "automatic": false,
+        "url": "https://www.spigotmc.org/wiki/buildtools/"
+      }
+    ],
+    "defaultVariant": "paper",
+    "fileTypes": [
+      ".jar"
+    ],
+    "javaRequirements": {
+      "default": 21,
+      "versions": [
+        {
+          "from": "1.0",
+          "java": 8
+        },
+        {
+          "from": "1.17",
+          "java": 16
+        },
+        {
+          "from": "1.18",
+          "java": 17
+        },
+        {
+          "from": "1.20.5",
+          "java": 21
+        }
+      ]
+    }
+  },
+  "capabilities": {
+    "players": true,
+    "mods": true,
+    "configEditor": true,
+    "bridge": true
+  },
+  "modFormat": "JAR (.jar)",
+  "jvmFlagPresets": [
+    {
+      "id": "aikar",
+      "label": "Aikar's flags",
+      "description": "Tuned G1GC set for Paper-family servers with 4 GB or more. Best for Paper, Purpur and Spigot.",
+      "flags": [
+        "-XX:+UseG1GC",
+        "-XX:+ParallelRefProcEnabled",
+        "-XX:MaxGCPauseMillis=200",
+        "-XX:+UnlockExperimentalVMOptions",
+        "-XX:+DisableExplicitGC",
+        "-XX:+AlwaysPreTouch",
+        "-XX:G1NewSizePercent=30",
+        "-XX:G1MaxNewSizePercent=40",
+        "-XX:G1HeapRegionSize=8M",
+        "-XX:G1ReservePercent=20",
+        "-XX:G1HeapWastePercent=5",
+        "-XX:G1MixedGCCountTarget=4",
+        "-XX:InitiatingHeapOccupancyPercent=15",
+        "-XX:G1MixedGCLiveThresholdPercent=90",
+        "-XX:G1RSetUpdatingPauseTimePercent=5",
+        "-XX:SurvivorRatio=32",
+        "-XX:+PerfDisableSharedMem",
+        "-XX:MaxTenuringThreshold=1"
+      ],
+      "recommendedFor": [
+        "paper",
+        "purpur",
+        "spigot"
+      ]
+    },
+    {
+      "id": "g1-basic",
+      "label": "G1GC basic",
+      "description": "Light, safe G1 tuning for modded and vanilla servers (Fabric, Forge, NeoForge, Vanilla).",
+      "flags": [
+        "-XX:+UseG1GC",
+        "-XX:+ParallelRefProcEnabled",
+        "-XX:MaxGCPauseMillis=200",
+        "-XX:+DisableExplicitGC"
+      ],
+      "recommendedFor": [
+        "fabric",
+        "forge",
+        "neoforge",
+        "vanilla"
+      ]
+    },
+    {
+      "id": "zgc",
+      "label": "Generational ZGC",
+      "description": "Very low pause times on large heaps. Needs Java 21 or newer.",
+      "flags": [
+        "-XX:+UseZGC",
+        "-XX:+ZGenerational"
+      ]
+    },
+    {
+      "id": "java23-unsafe",
+      "label": "Silence Unsafe warning",
+      "description": "Hides the \"sun.misc.Unsafe::objectFieldOffset\" deprecation warning printed by JOML on Java 23+. Do not use on older Java: it will not start.",
+      "flags": [
+        "--sun-misc-unsafe-memory-access=allow"
+      ]
+    }
+  ],
+  "modSources": [
+    {
+      "id": "modrinth",
+      "name": "Modrinth",
+      "type": "modrinth",
+      "baseUrl": "https://api.modrinth.com/v2",
+      "projectUrl": "https://modrinth.com/project/{slug}",
+      "loaderCategories": {
+        "fabric": [
+          "fabric"
+        ],
+        "forge": [
+          "forge"
+        ],
+        "neoforge": [
+          "neoforge"
+        ],
+        "paper": [
+          "paper",
+          "spigot",
+          "bukkit"
+        ],
+        "purpur": [
+          "purpur",
+          "paper",
+          "spigot",
+          "bukkit"
+        ],
+        "spigot": [
+          "spigot",
+          "bukkit"
+        ]
+      },
+      "installDir": {
+        "paper": "plugins",
+        "purpur": "plugins",
+        "spigot": "plugins"
+      },
+      "defaultInstallDir": "mods"
+    }
+  ],
+  "serverIcon": {
+    "file": "server-icon.png",
+    "size": 64
+  },
+  "logo": "logo.svg",
+  "playerView": {
+    "dimensions": true,
+    "coordinates": true,
+    "vitals": true,
+    "avatarUrl": "https://mc-heads.net/avatar/{{player}}/40",
+    "itemIconUrls": [
+      "https://assets.mcasset.cloud/1.20.4/assets/minecraft/textures/item/{{item}}.png",
+      "https://assets.mcasset.cloud/1.20.4/assets/minecraft/textures/block/{{item}}.png"
+    ],
+    "itemNamespaces": [
+      "minecraft"
+    ],
+    "inventoryClearAction": "clear"
+  },
+  "performance": {
+    "tickRate": 20
+  },
+  "dimensions": [
+    {
+      "id": "overworld",
+      "label": {
+        "en": "Overworld",
+        "es": "Superficie"
+      },
+      "aliases": [
+        "minecraft:overworld",
+        "world"
+      ],
+      "icon": "icons/overworld.png",
+      "primary": true
+    },
+    {
+      "id": "the_nether",
+      "label": {
+        "en": "The Nether",
+        "es": "El Nether"
+      },
+      "aliases": [
+        "minecraft:the_nether",
+        "nether",
+        "world_nether"
+      ],
+      "icon": "icons/the_nether.png",
+      "primary": true
+    },
+    {
+      "id": "the_end",
+      "label": {
+        "en": "The End",
+        "es": "El End"
+      },
+      "aliases": [
+        "minecraft:the_end",
+        "end",
+        "world_the_end"
+      ],
+      "icon": "icons/the_end.png",
+      "primary": true
+    },
+    {
+      "id": "twilightforest:twilight_forest",
+      "label": "The Twilight Forest",
+      "icon": "icons/unknown.png"
+    },
+    {
+      "id": "aether:the_aether",
+      "label": "The Aether",
+      "icon": "icons/aether.png"
+    },
+    {
+      "id": "deeperdarker:otherside",
+      "label": "The Otherside",
+      "icon": "icons/unknown.png"
+    },
+    {
+      "id": "undergarden:undergarden",
+      "label": "The Undergarden",
+      "aliases": [
+        "the_undergarden:undergarden"
+      ],
+      "icon": "icons/unknown.png"
+    },
+    {
+      "id": "blue_skies:everdawn",
+      "label": "Everdawn",
+      "icon": "icons/unknown.png"
+    },
+    {
+      "id": "blue_skies:everbright",
+      "label": "Everbright",
+      "icon": "icons/unknown.png"
+    }
+  ],
+  "quickCommands": [
+    {
+      "label": "weather clear",
+      "command": "weather clear"
+    },
+    {
+      "label": "time set day",
+      "command": "time set day"
+    },
+    {
+      "label": "save-all",
+      "command": "save-all"
+    },
+    {
+      "label": "list",
+      "command": "list"
+    }
+  ],
+  "playerActions": [
+    {
+      "id": "heal",
+      "label": {
+        "en": "Heal",
+        "es": "Curar"
+      },
+      "icon": "heart",
+      "quick": true,
+      "bridgeAction": "HEAL",
+      "command": "effect give {{player}} minecraft:instant_health 1 {{amount}}",
+      "params": [
+        {
+          "id": "amount",
+          "label": {
+            "en": "Strength",
+            "es": "Intensidad"
+          },
+          "type": "number",
+          "default": 10
+        }
+      ]
+    },
+    {
+      "id": "feed",
+      "label": {
+        "en": "Feed",
+        "es": "Alimentar"
+      },
+      "icon": "utensils",
+      "command": "effect give {{player}} minecraft:saturation 1 20"
+    },
+    {
+      "id": "give",
+      "label": {
+        "en": "Give item",
+        "es": "Dar objeto"
+      },
+      "icon": "gift",
+      "quick": true,
+      "command": "give {{player}} {{item}} {{count}}",
+      "params": [
+        {
+          "id": "item",
+          "label": {
+            "en": "Item",
+            "es": "Objeto"
+          },
+          "type": "select",
+          "default": "minecraft:diamond",
+          "options": [
+            {
+              "value": "minecraft:diamond",
+              "label": {
+                "en": "Diamond",
+                "es": "Diamante"
+              }
+            },
+            {
+              "value": "minecraft:emerald",
+              "label": {
+                "en": "Emerald",
+                "es": "Esmeralda"
+              }
+            },
+            {
+              "value": "minecraft:golden_apple",
+              "label": {
+                "en": "Golden apple",
+                "es": "Manzana dorada"
+              }
+            },
+            {
+              "value": "minecraft:cooked_beef",
+              "label": {
+                "en": "Steak",
+                "es": "Filete"
+              }
+            },
+            {
+              "value": "minecraft:netherite_ingot",
+              "label": {
+                "en": "Netherite ingot",
+                "es": "Lingote de netherita"
+              }
+            },
+            {
+              "value": "minecraft:totem_of_undying",
+              "label": {
+                "en": "Totem of undying",
+                "es": "Tótem de la inmortalidad"
+              }
+            }
+          ]
+        },
+        {
+          "id": "count",
+          "label": {
+            "en": "Count",
+            "es": "Cantidad"
+          },
+          "type": "number",
+          "default": 5
+        }
+      ]
+    },
+    {
+      "id": "damage",
+      "label": {
+        "en": "Damage",
+        "es": "Dañar"
+      },
+      "icon": "zap",
+      "quick": true,
+      "bridgeAction": "DAMAGE",
+      "command": "damage {{player}} {{amount}} minecraft:magic",
+      "params": [
+        {
+          "id": "amount",
+          "label": {
+            "en": "Damage",
+            "es": "Daño"
+          },
+          "type": "number",
+          "default": 4
+        }
+      ]
+    },
+    {
+      "id": "kill",
+      "label": {
+        "en": "Kill",
+        "es": "Matar"
+      },
+      "icon": "skull",
+      "quick": true,
+      "danger": true,
+      "bridgeAction": "KILL",
+      "command": "kill {{player}}"
+    },
+    {
+      "id": "kick",
+      "label": {
+        "en": "Kick",
+        "es": "Expulsar"
+      },
+      "icon": "user-x",
+      "bridgeAction": "KICK",
+      "command": "kick {{player}} {{reason}}",
+      "params": [
+        {
+          "id": "reason",
+          "label": {
+            "en": "Reason",
+            "es": "Motivo"
+          },
+          "type": "text",
+          "default": "Kicked by administrator"
+        }
+      ]
+    },
+    {
+      "id": "ban",
+      "label": {
+        "en": "Ban",
+        "es": "Banear"
+      },
+      "icon": "ban",
+      "danger": true,
+      "command": "ban {{player}} {{reason}}",
+      "params": [
+        {
+          "id": "reason",
+          "label": {
+            "en": "Reason",
+            "es": "Motivo"
+          },
+          "type": "text",
+          "default": "Banned by administrator"
+        }
+      ]
+    },
+    {
+      "id": "op",
+      "label": {
+        "en": "Make operator",
+        "es": "Dar OP"
+      },
+      "icon": "shield",
+      "command": "op {{player}}"
+    },
+    {
+      "id": "deop",
+      "label": {
+        "en": "Remove operator",
+        "es": "Quitar OP"
+      },
+      "icon": "shield-off",
+      "command": "deop {{player}}"
+    },
+    {
+      "id": "gamemode",
+      "label": {
+        "en": "Game mode",
+        "es": "Modo de juego"
+      },
+      "icon": "gamepad",
+      "command": "gamemode {{mode}} {{player}}",
+      "params": [
+        {
+          "id": "mode",
+          "label": {
+            "en": "Mode",
+            "es": "Modo"
+          },
+          "type": "select",
+          "default": "survival",
+          "options": [
+            {
+              "value": "survival",
+              "label": {
+                "en": "Survival",
+                "es": "Supervivencia"
+              }
+            },
+            {
+              "value": "creative",
+              "label": {
+                "en": "Creative",
+                "es": "Creativo"
+              }
+            },
+            {
+              "value": "adventure",
+              "label": {
+                "en": "Adventure",
+                "es": "Aventura"
+              }
+            },
+            {
+              "value": "spectator",
+              "label": {
+                "en": "Spectator",
+                "es": "Espectador"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tp",
+      "label": {
+        "en": "Teleport to coordinates",
+        "es": "Teletransportar a coordenadas"
+      },
+      "icon": "map-pin",
+      "bridgeAction": "TELEPORT",
+      "command": "tp {{player}} {{x}} {{y}} {{z}}",
+      "params": [
+        {
+          "id": "x",
+          "label": {
+            "en": "X",
+            "es": "X"
+          },
+          "type": "number",
+          "default": 0
+        },
+        {
+          "id": "y",
+          "label": {
+            "en": "Y",
+            "es": "Y"
+          },
+          "type": "number",
+          "default": 64
+        },
+        {
+          "id": "z",
+          "label": {
+            "en": "Z",
+            "es": "Z"
+          },
+          "type": "number",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "id": "tp_player",
+      "label": {
+        "en": "Teleport to player",
+        "es": "Teletransportar a jugador"
+      },
+      "icon": "users",
+      "bridgeAction": "TELEPORT",
+      "command": "tp {{player}} {{targetPlayer}}",
+      "params": [
+        {
+          "id": "targetPlayer",
+          "label": {
+            "en": "Target player",
+            "es": "Jugador destino"
+          },
+          "type": "text",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "id": "experience",
+      "label": {
+        "en": "Experience",
+        "es": "Experiencia"
+      },
+      "icon": "sparkles",
+      "bridgeAction": "GIVE_EXP",
+      "command": "experience {{mode}} {{player}} {{amount}} {{expType}}",
+      "params": [
+        {
+          "id": "amount",
+          "label": {
+            "en": "Amount",
+            "es": "Cantidad"
+          },
+          "type": "number",
+          "default": 5
+        },
+        {
+          "id": "expType",
+          "label": {
+            "en": "Type",
+            "es": "Tipo"
+          },
+          "type": "select",
+          "default": "levels",
+          "options": [
+            {
+              "value": "levels",
+              "label": {
+                "en": "Levels",
+                "es": "Niveles"
+              }
+            },
+            {
+              "value": "points",
+              "label": {
+                "en": "Points",
+                "es": "Puntos"
+              }
+            }
+          ]
+        },
+        {
+          "id": "mode",
+          "label": {
+            "en": "Mode",
+            "es": "Modo"
+          },
+          "type": "select",
+          "default": "add",
+          "options": [
+            {
+              "value": "add",
+              "label": {
+                "en": "Add",
+                "es": "Sumar"
+              }
+            },
+            {
+              "value": "set",
+              "label": {
+                "en": "Set",
+                "es": "Fijar"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "freeze",
+      "label": {
+        "en": "Freeze",
+        "es": "Congelar"
+      },
+      "icon": "snowflake",
+      "bridgeAction": "FREEZE",
+      "command": [
+        "effect give {{player}} minecraft:slowness infinite 255 true",
+        "effect give {{player}} minecraft:jump_boost infinite 250 true"
+      ]
+    },
+    {
+      "id": "unfreeze",
+      "label": {
+        "en": "Unfreeze",
+        "es": "Descongelar"
+      },
+      "icon": "sun",
+      "bridgeAction": "UNFREEZE",
+      "command": [
+        "effect clear {{player}} minecraft:slowness",
+        "effect clear {{player}} minecraft:jump_boost"
+      ]
+    },
+    {
+      "id": "mute",
+      "label": {
+        "en": "Mute",
+        "es": "Silenciar"
+      },
+      "icon": "volume-x",
+      "bridgeAction": "MUTE",
+      "command": "tag {{player}} add muted"
+    },
+    {
+      "id": "unmute",
+      "label": {
+        "en": "Unmute",
+        "es": "Quitar silencio"
+      },
+      "icon": "volume-2",
+      "bridgeAction": "UNMUTE",
+      "command": "tag {{player}} remove muted"
+    },
+    {
+      "id": "smite",
+      "label": {
+        "en": "Smite",
+        "es": "Rayo"
+      },
+      "icon": "cloud-lightning",
+      "danger": true,
+      "bridgeAction": "SMITE",
+      "command": "execute at {{player}} run summon lightning_bolt ~ ~ ~"
+    },
+    {
+      "id": "clear",
+      "label": {
+        "en": "Clear inventory",
+        "es": "Limpiar inventario"
+      },
+      "icon": "trash",
+      "danger": true,
+      "command": "clear {{player}}"
+    }
+  ],
+  "creationSettings": [
+    {
+      "id": "gamemode",
+      "label": {
+        "en": "Game mode",
+        "es": "Modo de juego"
+      },
+      "type": "select",
+      "file": "server.properties",
+      "key": "gamemode",
+      "default": "survival",
+      "options": [
+        {
+          "value": "survival",
+          "label": {
+            "en": "Survival",
+            "es": "Supervivencia"
+          }
+        },
+        {
+          "value": "creative",
+          "label": {
+            "en": "Creative",
+            "es": "Creativo"
+          }
+        },
+        {
+          "value": "adventure",
+          "label": {
+            "en": "Adventure",
+            "es": "Aventura"
+          }
+        },
+        {
+          "value": "spectator",
+          "label": {
+            "en": "Spectator",
+            "es": "Espectador"
+          }
+        }
+      ]
+    },
+    {
+      "id": "difficulty",
+      "label": {
+        "en": "Difficulty",
+        "es": "Dificultad"
+      },
+      "type": "select",
+      "file": "server.properties",
+      "key": "difficulty",
+      "default": "normal",
+      "options": [
+        {
+          "value": "peaceful",
+          "label": {
+            "en": "Peaceful",
+            "es": "Pacífico"
+          }
+        },
+        {
+          "value": "easy",
+          "label": {
+            "en": "Easy",
+            "es": "Fácil"
+          }
+        },
+        {
+          "value": "normal",
+          "label": {
+            "en": "Normal",
+            "es": "Normal"
+          }
+        },
+        {
+          "value": "hard",
+          "label": {
+            "en": "Hard",
+            "es": "Difícil"
+          }
+        }
+      ]
+    }
+  ],
+  "default": true,
+  "instanceFolders": [
+    "mods",
+    "config"
+  ],
+  "modLayout": {
+    "modsDir": "mods",
+    "configDir": "config",
+    "fileTypes": [
+      ".jar"
+    ]
+  },
+  "bridgeTargets": {
+    "paper": {
+      "dir": "plugins",
+      "asset": "mc-nexus-bridge-paper.jar"
+    },
+    "purpur": {
+      "dir": "plugins",
+      "asset": "mc-nexus-bridge-paper.jar"
+    },
+    "spigot": {
+      "dir": "plugins",
+      "asset": "mc-nexus-bridge-paper.jar"
+    },
+    "default": {
+      "dir": "mods",
+      "asset": "mc-nexus-bridge-fabric.jar"
+    }
+  },
+  "playerLists": [
+    {
+      "id": "whitelist",
+      "label": {
+        "en": "Whitelist",
+        "es": "Lista blanca"
+      },
+      "description": {
+        "en": "Only these players can join while the whitelist is on.",
+        "es": "Solo estos jugadores pueden entrar mientras la lista blanca está activa."
+      },
+      "icon": "list-checks",
+      "file": "whitelist.json",
+      "key": "name",
+      "add": "whitelist add {{value}}",
+      "remove": "whitelist remove {{value}}",
+      "toggle": {
+        "configFile": "server.properties",
+        "key": "white-list",
+        "on": "whitelist on",
+        "off": "whitelist off"
+      }
+    },
+    {
+      "id": "operators",
+      "label": {
+        "en": "Operators",
+        "es": "Operadores"
+      },
+      "description": {
+        "en": "Players with administrator permissions (op).",
+        "es": "Jugadores con permisos de administrador (op)."
+      },
+      "icon": "shield",
+      "file": "ops.json",
+      "key": "name",
+      "details": [
+        "level"
+      ],
+      "add": "op {{value}}",
+      "remove": "deop {{value}}"
+    },
+    {
+      "id": "banned-players",
+      "label": {
+        "en": "Banned players",
+        "es": "Jugadores baneados"
+      },
+      "description": {
+        "en": "Players who cannot join the server.",
+        "es": "Jugadores que no pueden entrar al servidor."
+      },
+      "icon": "ban",
+      "file": "banned-players.json",
+      "key": "name",
+      "details": [
+        "reason",
+        "created",
+        "source"
+      ],
+      "reason": true,
+      "add": "ban {{value}} {{reason}}",
+      "remove": "pardon {{value}}"
+    },
+    {
+      "id": "banned-ips",
+      "label": {
+        "en": "Banned IPs",
+        "es": "IPs baneadas"
+      },
+      "description": {
+        "en": "Addresses that cannot connect to the server.",
+        "es": "Direcciones que no pueden conectarse al servidor."
+      },
+      "icon": "globe",
+      "file": "banned-ips.json",
+      "key": "ip",
+      "valueType": "ip",
+      "details": [
+        "reason",
+        "created",
+        "source"
+      ],
+      "reason": true,
+      "add": "ban-ip {{value}} {{reason}}",
+      "remove": "pardon-ip {{value}}"
+    }
+  ]
+}

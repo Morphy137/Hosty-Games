@@ -1,0 +1,230 @@
+{
+  "apiVersion": 1,
+  "id": "project-zomboid",
+  "name": "Project Zomboid",
+  "version": "1.0.0",
+  "author": { "name": "Hosty", "url": "https://github.com/Morphy137/Hosty" },
+  "badge": "PZ",
+  "category": "survival",
+  "status": "beta",
+  "description": {
+    "en": "Project Zomboid Dedicated Server (SteamCMD AppID 380870)",
+    "es": "Servidor dedicado de Project Zomboid (SteamCMD AppID 380870)"
+  },
+  "defaults": {
+    "port": 16261,
+    "maxPlayers": 32,
+    "portStride": 2
+  },
+  "provision": {
+    "type": "steamcmd",
+    "appId": 380870,
+    "branchField": "pzBranch"
+  },
+  "launch": {
+    "runtime": "native",
+    "executable": {
+      "win32": "ProjectZomboid64.exe|StartServer64.bat",
+      "default": "start-server.sh"
+    },
+    "args": [
+      "-cachedir={{instanceDir}}/Zomboid",
+      "-servername",
+      "servertest",
+      "-adminpassword",
+      "{{adminPassword}}",
+      "-memory",
+      "{{maxRamMb}}m",
+      "-port",
+      "{{port}}",
+      "-udpport",
+      "{{nextPort}}"
+    ]
+  },
+  "detect": [
+    "ProjectZomboid64.exe",
+    "StartServer64.bat",
+    "start-server.sh",
+    "ProjectZomboid64.json",
+    "servertest.ini",
+    "Zomboid/Server/servertest.ini"
+  ],
+  "logs": {
+    "ready": [
+      "SERVER STARTED",
+      "Server is now listening on port",
+      "Steam game server initialized"
+    ],
+    "join": [
+      "user\\s+\"?(?<username>[^\"\\s]+)\"?\\s+is connected",
+      "Player\\s+\"?(?<username>[^\"\\s]+)\"?\\s+connected",
+      "\\*\\*\\*\\s+Player\\s+(?<username>[^\\s]+)\\s+connected"
+    ],
+    "leave": [
+      "user\\s+\"?(?<username>[^\"\\s]+)\"?\\s+disconnected",
+      "Player\\s+\"?(?<username>[^\"\\s]+)\"?\\s+disconnected",
+      "\\*\\*\\*\\s+Player\\s+(?<username>[^\\s]+)\\s+disconnected"
+    ],
+    "dimension": "knox_county"
+  },
+  "commands": {
+    "stop": "quit",
+    "save": "save",
+    "listPlayers": "players",
+    "broadcast": "servermsg \"{{message}}\""
+  },
+  "configFiles": [
+    {
+      "path": "Zomboid/Server/servertest.ini",
+      "format": "ini"
+    }
+  ],
+  "setup": [
+    {
+      "id": "pzBranch",
+      "type": "select",
+      "label": {
+        "en": "SteamCMD branch",
+        "es": "Rama de SteamCMD"
+      },
+      "default": "stable",
+      "options": [
+        {
+          "value": "stable",
+          "label": {
+            "en": "Public release (Build 41+)",
+            "es": "Versión pública (Build 41+)"
+          }
+        },
+        {
+          "value": "unstable",
+          "label": {
+            "en": "Unstable / Beta branch",
+            "es": "Rama inestable / Beta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "adminPassword",
+      "type": "secret",
+      "required": true,
+      "label": {
+        "en": "Administrator password",
+        "es": "Contraseña de administrador"
+      },
+      "description": {
+        "en": "Used to create the admin account on the first start. The server waits for it otherwise.",
+        "es": "Se usa para crear la cuenta de administrador en el primer arranque. Sin ella el servidor se queda esperando."
+      }
+    }
+  ],
+  "capabilities": {
+    "players": true,
+    "mods": false,
+    "configEditor": true,
+    "bridge": false
+  },
+  "modFormat": "Steam Workshop / Lua",
+  "logo": "logo.webp",
+  "configSync": {
+    "file": "Zomboid/Server/servertest.ini",
+    "format": "ini",
+    "map": {
+      "port": "DefaultPort",
+      "maxPlayers": "MaxPlayers",
+      "motd": "PublicDescription"
+    }
+  },
+  "quickCommands": [
+    {
+      "label": "Players",
+      "command": "players"
+    },
+    {
+      "label": "Save",
+      "command": "save"
+    },
+    {
+      "label": "Chopper",
+      "command": "chopper"
+    }
+  ],
+  "playerActions": [
+    {
+      "id": "kick",
+      "label": {
+        "en": "Kick",
+        "es": "Expulsar"
+      },
+      "command": "kickuser \"{{player}}\"",
+      "quick": true,
+      "icon": "user-x"
+    },
+    {
+      "id": "ban",
+      "label": {
+        "en": "Ban",
+        "es": "Banear"
+      },
+      "command": "banuser \"{{player}}\"",
+      "danger": true,
+      "icon": "ban"
+    },
+    {
+      "id": "additem",
+      "label": {
+        "en": "Give item",
+        "es": "Dar objeto"
+      },
+      "command": "additem \"{{player}}\" \"{{item}}\" {{count}}",
+      "params": [
+        {
+          "id": "item",
+          "label": {
+            "en": "Item (e.g. Base.Axe)",
+            "es": "Objeto (p. ej. Base.Axe)"
+          },
+          "type": "text",
+          "default": "Base.Axe"
+        },
+        {
+          "id": "count",
+          "label": {
+            "en": "Amount",
+            "es": "Cantidad"
+          },
+          "type": "number",
+          "default": 1
+        }
+      ]
+    },
+    {
+      "id": "admin",
+      "label": {
+        "en": "Grant admin",
+        "es": "Dar admin"
+      },
+      "command": "setaccesslevel \"{{player}}\" \"admin\"",
+      "danger": true
+    },
+    {
+      "id": "god",
+      "label": {
+        "en": "Toggle god mode",
+        "es": "Modo dios"
+      },
+      "command": "godmod \"{{player}}\""
+    }
+  ],
+  "dimensions": [
+    {
+      "id": "knox_county",
+      "label": {
+        "en": "Knox County",
+        "es": "Condado de Knox"
+      },
+      "primary": true
+    }
+  ]
+}
